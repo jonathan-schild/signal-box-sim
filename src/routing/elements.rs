@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025 Jonathan "Nath" Schild. Licensed under the EUPL-1.2
+ */
+
 use crate::{
     Error,
     routing::{ElementID, NO_PREVIOUS_ELEMENT, Pathfinder, TrainRoute},
