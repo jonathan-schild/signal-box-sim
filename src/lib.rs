@@ -3,8 +3,7 @@
  */
 
 pub mod elements;
-pub mod routing;
 
 pub enum Error {
-    NoConnectionToPreviousElement,
+    UnknownError,
 }
