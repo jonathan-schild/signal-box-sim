@@ -1,0 +1,3 @@
+[submodule "docs"]
+	path = docs
+	url = git@github.com:jonathan-schild/signal-box-sim-doc.git
