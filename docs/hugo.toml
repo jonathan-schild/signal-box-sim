@@ -1,0 +1,9 @@
+baseURL = 'https://example.org/'
+languageCode = 'en-us'
+title = 'Signal Box Sim'
+theme = 'hugo-theme-relearn'
+
+[params]
+  disableLandingPageButton = true
+  showVisitedLinks = false
+  alwaysopen = false
