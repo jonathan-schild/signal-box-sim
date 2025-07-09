@@ -2,6 +2,7 @@
  * Copyright (c) 2025 Jonathan "Nath" Schild. Licensed under the EUPL-1.2
  */
 
+use log::warn;
 use once_cell::sync::Lazy;
 use regex::Regex;
 use serde::{Deserialize, Deserializer, Serialize, de::Visitor};
@@ -126,8 +127,8 @@ impl ElementName {
             || SHUNTING_SIGNAL_NAME_MATCHER.is_match(name)
             || LOGICAL_ELEMENT_NAME_MATCHER.is_match(name))
         {
-            panic!("Invalid name")
-        };
+            warn!("invalid element name <{}>", name);
+        }
 
         #[cfg(debug_assertions)]
         {
