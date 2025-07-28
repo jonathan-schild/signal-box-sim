@@ -5,31 +5,31 @@
 use crate::svg_render::Elements;
 
 impl Elements {
-    pub fn diagonal_crossing(_coordinate: (u16, u16), _svg: &mut str) {
+    pub fn diagonal_crossing(coordinate: (i32, i32), svg: &mut String) {
         todo!()
     }
 
-    pub fn crossing_up(_coordinate: (u16, u16), _svg: &mut str) {
+    pub fn crossing_up(coordinate: (i32, i32), svg: &mut String) {
         todo!()
     }
 
-    pub fn crossing_down(_coordinate: (u16, u16), _svg: &mut str) {
+    pub fn crossing_down(coordinate: (i32, i32), svg: &mut String) {
         todo!()
     }
 
-    pub fn tunnel_horizontal(_coordinate: (u16, u16), _svg: &mut str) {
+    pub fn tunnel_horizontal(coordinate: (i32, i32), svg: &mut String) {
         todo!()
     }
 
-    pub fn tunnel_vertical(_coordinate: (u16, u16), _svg: &mut str) {
+    pub fn tunnel_vertical(coordinate: (i32, i32), svg: &mut String) {
         todo!()
     }
 
-    pub fn diagonal_tunnel_up(_coordinate: (u16, u16), _svg: &mut str) {
+    pub fn diagonal_tunnel_up(coordinate: (i32, i32), svg: &mut String) {
         todo!()
     }
 
-    pub fn diagonal_tunnel_down(_coordinate: (u16, u16), _svg: &mut str) {
+    pub fn diagonal_tunnel_down(coordinate: (i32, i32), svg: &mut String) {
         todo!()
     }
 }

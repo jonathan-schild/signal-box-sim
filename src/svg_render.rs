@@ -8,15 +8,17 @@ mod track_and_curves;
 
 pub type Coordinate = (i32, i32);
 
-const _TOP_LEFT: Coordinate = (0, 0);
-const _TOP: Coordinate = (10, 0);
-const _TOP_RIGHT: Coordinate = (20, 0);
-const _RIGHT: Coordinate = (20, 10);
-const _BOTTOM_RIGHT: Coordinate = (20, 20);
-const _BOTTOM: Coordinate = (10, 20);
-const _BOTTOM_LEFT: Coordinate = (0, 20);
-const _LEFT: Coordinate = (0, 10);
-const _CENTRE: Coordinate = (10, 10);
+const SCALE: i32 = 20;
+
+const TOP_LEFT: Coordinate = (0, 0);
+const TOP: Coordinate = (10, 0);
+const TOP_RIGHT: Coordinate = (20, 0);
+const RIGHT: Coordinate = (20, 10);
+const BOTTOM_RIGHT: Coordinate = (20, 20);
+const BOTTOM: Coordinate = (10, 20);
+const BOTTOM_LEFT: Coordinate = (0, 20);
+const LEFT: Coordinate = (0, 10);
+const CENTRE: Coordinate = (10, 10);
 
 pub type ID = u32;
 
@@ -71,7 +73,9 @@ pub enum Elements {
 }
 
 impl Elements {
-    pub fn render_svg(&self, coordinate: (u16, u16), svg: &mut str) {
+    pub fn render_svg(&self, coordinate: (u16, u16), svg: &mut String) {
+        let coordinate = (coordinate.0 as i32 * SCALE, coordinate.1 as i32 * SCALE);
+
         match self {
             Elements::TrackHorizontal => Self::track_horizontal(coordinate, svg),
             Elements::TrackVertical => Self::track_vertical(coordinate, svg),
@@ -113,5 +117,44 @@ impl Elements {
             Elements::TunnelHorizontal => Self::tunnel_horizontal(coordinate, svg),
             Elements::TunnelVertical => Self::tunnel_vertical(coordinate, svg),
         }
+    }
+}
+
+#[cfg(test)]
+mod test_common {
+    use std::{
+        fs::{OpenOptions, create_dir_all},
+        io::{BufWriter, Write},
+    };
+
+    pub const NULL: (i32, i32) = (0, 0);
+
+    pub fn svg_prolog(svg: &mut String) {
+        svg.push_str(
+            r#"<svg
+                        version="1.1"
+                        width="20mm"
+                        height="20mm"
+                        viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg">
+                    "#,
+        );
+    }
+
+    pub fn svg_epilog(svg: &mut String) {
+        svg.push_str(r#"</svg>"#);
+    }
+
+    pub fn write(svg: String, file: &str) {
+        create_dir_all("target/test/").unwrap();
+        let mut file = BufWriter::new(
+            OpenOptions::new()
+                .create(true)
+                .write(true)
+                .truncate(true)
+                .open(format!("target/test/{}.svg", file))
+                .unwrap(),
+        );
+        file.write_all(svg.as_bytes()).unwrap();
     }
 }
