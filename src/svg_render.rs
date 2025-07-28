@@ -11,14 +11,14 @@ pub type Coordinate = (i32, i32);
 const SCALE: i32 = 20;
 
 const TOP_LEFT: Coordinate = (0, 0);
-const TOP: Coordinate = (10, 0);
-const TOP_RIGHT: Coordinate = (20, 0);
-const RIGHT: Coordinate = (20, 10);
-const BOTTOM_RIGHT: Coordinate = (20, 20);
-const BOTTOM: Coordinate = (10, 20);
-const BOTTOM_LEFT: Coordinate = (0, 20);
-const LEFT: Coordinate = (0, 10);
-const CENTRE: Coordinate = (10, 10);
+const TOP: Coordinate = (SCALE / 2, 0);
+const TOP_RIGHT: Coordinate = (SCALE, 0);
+const RIGHT: Coordinate = (SCALE, SCALE / 2);
+const BOTTOM_RIGHT: Coordinate = (SCALE, SCALE);
+const BOTTOM: Coordinate = (SCALE / 2, SCALE);
+const BOTTOM_LEFT: Coordinate = (0, SCALE);
+const LEFT: Coordinate = (0, SCALE / 2);
+const CENTRE: Coordinate = (SCALE / 2, SCALE / 2);
 
 pub type ID = u32;
 
@@ -129,18 +129,20 @@ mod test_common {
         io::{BufWriter, Write},
     };
 
+    use super::SCALE;
+
     pub const NULL: (i32, i32) = (0, 0);
 
     pub fn svg_prolog(svg: &mut String) {
-        svg.push_str(
+        svg.push_str(&format!(
             r#"<svg
     version="1.1"
-    width="20mm"
-    height="20mm"
-    viewBox="0 0 20 20"
+    width="{SCALE}mm"
+    height="{SCALE}mm"
+    viewBox="0 0 {SCALE} {SCALE}"
     xmlns="http://www.w3.org/2000/svg">
-"#,
-        );
+"#
+        ));
     }
 
     pub fn svg_epilog(svg: &mut String) {
