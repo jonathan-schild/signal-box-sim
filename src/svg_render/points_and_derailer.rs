@@ -3,7 +3,7 @@
  */
 
 use crate::svg_render::{
-    BOTTOM, BOTTOM_LEFT, BOTTOM_RIGHT, CENTRE, Elements, LEFT, RIGHT, TOP, TOP_LEFT, TOP_RIGHT,
+    BOTTOM_LEFT, BOTTOM_RIGHT, CENTRE, Elements, LEFT, RIGHT, TOP_LEFT, TOP_RIGHT,
 };
 
 impl Elements {
@@ -256,35 +256,179 @@ impl Elements {
     }
 
     pub fn diagonal_point_up_right(coordinate: (i32, i32), svg: &mut String) {
-        todo!()
+        svg.push_str(&format!(
+            r#"    <path
+        style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
+        d="M {}, {} {}, {}"
+    />
+    <path
+        style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
+        d="M {}, {} {}, {}"
+    />
+"#,
+            BOTTOM_LEFT.0 + coordinate.0,
+            BOTTOM_LEFT.1 + coordinate.1,
+            TOP_RIGHT.0 + coordinate.0,
+            TOP_RIGHT.1 + coordinate.1,
+            CENTRE.0 + coordinate.0,
+            CENTRE.1 + coordinate.1,
+            RIGHT.0 + coordinate.0,
+            RIGHT.1 + coordinate.1,
+        ));
     }
 
     pub fn diagonal_point_up_left(coordinate: (i32, i32), svg: &mut String) {
-        todo!()
+        svg.push_str(&format!(
+            r#"    <path
+        style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
+        d="M {}, {} {}, {}"
+    />
+    <path
+        style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
+        d="M {}, {} {}, {}"
+    />
+"#,
+            BOTTOM_LEFT.0 + coordinate.0,
+            BOTTOM_LEFT.1 + coordinate.1,
+            TOP_RIGHT.0 + coordinate.0,
+            TOP_RIGHT.1 + coordinate.1,
+            CENTRE.0 + coordinate.0,
+            CENTRE.1 + coordinate.1,
+            LEFT.0 + coordinate.0,
+            LEFT.1 + coordinate.1,
+        ));
     }
 
     pub fn diagonal_point_down_right(coordinate: (i32, i32), svg: &mut String) {
-        todo!()
+        svg.push_str(&format!(
+            r#"    <path
+        style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
+        d="M {}, {} {}, {}"
+    />
+    <path
+        style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
+        d="M {}, {} {}, {}"
+    />
+"#,
+            TOP_LEFT.0 + coordinate.0,
+            TOP_LEFT.1 + coordinate.1,
+            BOTTOM_RIGHT.0 + coordinate.0,
+            BOTTOM_RIGHT.1 + coordinate.1,
+            CENTRE.0 + coordinate.0,
+            CENTRE.1 + coordinate.1,
+            RIGHT.0 + coordinate.0,
+            RIGHT.1 + coordinate.1,
+        ));
     }
 
     pub fn diagonal_point_down_left(coordinate: (i32, i32), svg: &mut String) {
-        todo!()
+        svg.push_str(&format!(
+            r#"    <path
+        style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
+        d="M {}, {} {}, {}"
+    />
+    <path
+        style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
+        d="M {}, {} {}, {}"
+    />
+"#,
+            TOP_LEFT.0 + coordinate.0,
+            TOP_LEFT.1 + coordinate.1,
+            BOTTOM_RIGHT.0 + coordinate.0,
+            BOTTOM_RIGHT.1 + coordinate.1,
+            CENTRE.0 + coordinate.0,
+            CENTRE.1 + coordinate.1,
+            LEFT.0 + coordinate.0,
+            LEFT.1 + coordinate.1,
+        ));
     }
 
     pub fn derailer_right_up(coordinate: (i32, i32), svg: &mut String) {
-        todo!()
+        svg.push_str(&format!(
+            r#"    <path
+        style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
+        d="M {}, {} {}, {}"
+    />
+    <path
+        style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
+        d="M {}, {} {}, {}"
+    />
+"#,
+            LEFT.0 + coordinate.0,
+            LEFT.1 + coordinate.1,
+            RIGHT.0 + coordinate.0,
+            RIGHT.1 + coordinate.1,
+            CENTRE.0 + coordinate.0,
+            CENTRE.1 + coordinate.1,
+            TOP_RIGHT.0 + coordinate.0 - 5,
+            TOP_RIGHT.1 + coordinate.1 + 5,
+        ));
     }
 
     pub fn derailer_right_down(coordinate: (i32, i32), svg: &mut String) {
-        todo!()
+        svg.push_str(&format!(
+            r#"    <path
+        style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
+        d="M {}, {} {}, {}"
+    />
+    <path
+        style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
+        d="M {}, {} {}, {}"
+    />
+"#,
+            LEFT.0 + coordinate.0,
+            LEFT.1 + coordinate.1,
+            RIGHT.0 + coordinate.0,
+            RIGHT.1 + coordinate.1,
+            CENTRE.0 + coordinate.0,
+            CENTRE.1 + coordinate.1,
+            BOTTOM_RIGHT.0 + coordinate.0 - 5,
+            BOTTOM_RIGHT.1 + coordinate.1 - 5,
+        ));
     }
 
     pub fn derailer_left_up(coordinate: (i32, i32), svg: &mut String) {
-        todo!()
+        svg.push_str(&format!(
+            r#"    <path
+        style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
+        d="M {}, {} {}, {}"
+    />
+    <path
+        style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
+        d="M {}, {} {}, {}"
+    />
+"#,
+            LEFT.0 + coordinate.0,
+            LEFT.1 + coordinate.1,
+            RIGHT.0 + coordinate.0,
+            RIGHT.1 + coordinate.1,
+            CENTRE.0 + coordinate.0,
+            CENTRE.1 + coordinate.1,
+            TOP_LEFT.0 + coordinate.0 + 5,
+            TOP_LEFT.1 + coordinate.1 + 5,
+        ));
     }
 
     pub fn derailer_left_down(coordinate: (i32, i32), svg: &mut String) {
-        todo!()
+        svg.push_str(&format!(
+            r#"    <path
+        style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
+        d="M {}, {} {}, {}"
+    />
+    <path
+        style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
+        d="M {}, {} {}, {}"
+    />
+"#,
+            LEFT.0 + coordinate.0,
+            LEFT.1 + coordinate.1,
+            RIGHT.0 + coordinate.0,
+            RIGHT.1 + coordinate.1,
+            CENTRE.0 + coordinate.0,
+            CENTRE.1 + coordinate.1,
+            BOTTOM_LEFT.0 + coordinate.0 + 5,
+            BOTTOM_LEFT.1 + coordinate.1 - 5,
+        ));
     }
 }
 
@@ -400,5 +544,78 @@ mod tests {
         Elements::double_slip_point_down(NULL, &mut svg);
         svg_epilog(&mut svg);
         write(svg, "double-slip-point-down");
+    }
+
+    #[test]
+    fn test_diagonal_point_up_right() {
+        let mut svg = String::new();
+        svg_prolog(&mut svg);
+        Elements::diagonal_point_up_right(NULL, &mut svg);
+        (NULL, &mut svg);
+        svg_epilog(&mut svg);
+        write(svg, "diagonal-point-up-right");
+    }
+
+    #[test]
+    fn test_diagonal_point_up_left() {
+        let mut svg = String::new();
+        svg_prolog(&mut svg);
+        Elements::diagonal_point_up_left(NULL, &mut svg);
+        svg_epilog(&mut svg);
+        write(svg, "diagonal-point-up-left");
+    }
+
+    #[test]
+    fn test_diagonal_point_down_right() {
+        let mut svg = String::new();
+        svg_prolog(&mut svg);
+        Elements::diagonal_point_down_right(NULL, &mut svg);
+        svg_epilog(&mut svg);
+        write(svg, "diagonal-point-down-right");
+    }
+
+    #[test]
+    fn test_diagonal_point_down_left() {
+        let mut svg = String::new();
+        svg_prolog(&mut svg);
+        Elements::diagonal_point_down_left(NULL, &mut svg);
+        svg_epilog(&mut svg);
+        write(svg, "diagonal-point-down-left");
+    }
+
+    #[test]
+    fn test_derailer_right_up() {
+        let mut svg = String::new();
+        svg_prolog(&mut svg);
+        Elements::derailer_right_up(NULL, &mut svg);
+        svg_epilog(&mut svg);
+        write(svg, "derailer-right-up");
+    }
+
+    #[test]
+    fn test_derailer_right_down() {
+        let mut svg = String::new();
+        svg_prolog(&mut svg);
+        Elements::derailer_right_down(NULL, &mut svg);
+        svg_epilog(&mut svg);
+        write(svg, "derailer-right-down");
+    }
+
+    #[test]
+    fn test_derailer_left_up() {
+        let mut svg = String::new();
+        svg_prolog(&mut svg);
+        Elements::derailer_left_up(NULL, &mut svg);
+        svg_epilog(&mut svg);
+        write(svg, "derailer-left-up");
+    }
+
+    #[test]
+    fn test_derailer_left_down() {
+        let mut svg = String::new();
+        svg_prolog(&mut svg);
+        Elements::derailer_left_down(NULL, &mut svg);
+        svg_epilog(&mut svg);
+        write(svg, "derailer-leftW-down");
     }
 }
