@@ -132,12 +132,12 @@ mod test_common {
     pub fn svg_prolog(svg: &mut String) {
         svg.push_str(
             r#"<svg
-                        version="1.1"
-                        width="20mm"
-                        height="20mm"
-                        viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg">
-                    "#,
+    version="1.1"
+    width="20mm"
+    height="20mm"
+    viewBox="0 0 20 20"
+    xmlns="http://www.w3.org/2000/svg">
+"#,
         );
     }
 

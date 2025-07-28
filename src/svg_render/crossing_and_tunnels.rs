@@ -9,15 +9,15 @@ use crate::svg_render::{
 impl Elements {
     pub fn diagonal_crossing(coordinate: (i32, i32), svg: &mut String) {
         svg.push_str(&format!(
-            r#"<path
-                style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
-                d="M {}, {} {}, {}"
-            />
-            <path
-                style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
-                d="M {}, {} {}, {}"
-            />
-            "#,
+            r#"    <path
+        style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
+        d="M {}, {} {}, {}"
+    />
+    <path
+        style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
+        d="M {}, {} {}, {}"
+    />
+"#,
             TOP_LEFT.0 + coordinate.0,
             TOP_LEFT.1 + coordinate.1,
             BOTTOM_RIGHT.0 + coordinate.0,
@@ -31,15 +31,15 @@ impl Elements {
 
     pub fn crossing_up(coordinate: (i32, i32), svg: &mut String) {
         svg.push_str(&format!(
-            r#"<path
-                style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
-                d="M {}, {} {}, {}"
-            />
-            <path
-                style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
-                d="M {}, {} {}, {}"
-            />
-            "#,
+            r#"    <path
+        style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
+        d="M {}, {} {}, {}"
+    />
+    <path
+        style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
+        d="M {}, {} {}, {}"
+    />
+"#,
             LEFT.0 + coordinate.0,
             LEFT.1 + coordinate.1,
             RIGHT.0 + coordinate.0,
@@ -53,15 +53,15 @@ impl Elements {
 
     pub fn crossing_down(coordinate: (i32, i32), svg: &mut String) {
         svg.push_str(&format!(
-            r#"<path
-                style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
-                d="M {}, {} {}, {}"
-            />
-            <path
-                style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
-                d="M {}, {} {}, {}"
-            />
-            "#,
+            r#"    <path
+        style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
+        d="M {}, {} {}, {}"
+    />
+    <path
+        style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
+        d="M {}, {} {}, {}"
+    />
+"#,
             LEFT.0 + coordinate.0,
             LEFT.1 + coordinate.1,
             RIGHT.0 + coordinate.0,
@@ -75,19 +75,19 @@ impl Elements {
 
     pub fn tunnel_horizontal(coordinate: (i32, i32), svg: &mut String) {
         svg.push_str(&format!(
-            r#"<path
-                style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
-                d="M {}, {} {}, {}"
-            />
-            <path
-                style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
-                d="M {}, {} {}, {}"
-            />
-            <path
-                style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
-                d="M {}, {} {}, {}"
-            />
-            "#,
+            r#"    <path
+        style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
+        d="M {}, {} {}, {}"
+    />
+    <path
+        style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
+        d="M {}, {} {}, {}"
+    />
+    <path
+        style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
+        d="M {}, {} {}, {}"
+    />
+"#,
             LEFT.0 + coordinate.0,
             LEFT.1 + coordinate.1,
             RIGHT.0 + coordinate.0,
@@ -105,19 +105,19 @@ impl Elements {
 
     pub fn tunnel_vertical(coordinate: (i32, i32), svg: &mut String) {
         svg.push_str(&format!(
-            r#"<path
-                style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
-                d="M {}, {} {}, {}"
-            />
-            <path
-                style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
-                d="M {}, {} {}, {}"
-            />
-            <path
-                style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
-                d="M {}, {} {}, {}"
-            />
-            "#,
+            r#"    <path
+        style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
+        d="M {}, {} {}, {}"
+    />
+    <path
+        style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
+        d="M {}, {} {}, {}"
+    />
+    <path
+        style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
+        d="M {}, {} {}, {}"
+    />
+"#,
             TOP.0 + coordinate.0,
             TOP.1 + coordinate.1,
             BOTTOM.0 + coordinate.0,
@@ -135,19 +135,19 @@ impl Elements {
 
     pub fn diagonal_tunnel_up(coordinate: (i32, i32), svg: &mut String) {
         svg.push_str(&format!(
-            r#"<path
-                style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
-                d="M {}, {} {}, {}"
-            />
-            <path
-                style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
-                d="M {}, {} {}, {}"
-            />
-            <path
-                style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
-                d="M {}, {} {}, {}"
-            />
-            "#,
+            r#"    <path
+        style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
+        d="M {}, {} {}, {}"
+    />
+    <path
+        style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
+        d="M {}, {} {}, {}"
+    />
+    <path
+        style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
+        d="M {}, {} {}, {}"
+    />
+"#,
             BOTTOM_LEFT.0 + coordinate.0,
             BOTTOM_LEFT.1 + coordinate.1,
             TOP_RIGHT.0 + coordinate.0,
@@ -165,19 +165,19 @@ impl Elements {
 
     pub fn diagonal_tunnel_down(coordinate: (i32, i32), svg: &mut String) {
         svg.push_str(&format!(
-            r#"<path
-                style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
-                d="M {}, {} {}, {}"
-            />
-            <path
-                style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
-                d="M {}, {} {}, {}"
-            />
-            <path
-                style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
-                d="M {}, {} {}, {}"
-            />
-            "#,
+            r#"    <path
+        style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
+        d="M {}, {} {}, {}"
+    />
+    <path
+        style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
+        d="M {}, {} {}, {}"
+    />
+    <path
+        style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
+        d="M {}, {} {}, {}"
+    />
+"#,
             TOP_LEFT.0 + coordinate.0,
             TOP_LEFT.1 + coordinate.1,
             BOTTOM_RIGHT.0 + coordinate.0,

@@ -9,11 +9,11 @@ use crate::svg_render::{
 impl Elements {
     pub fn track_horizontal(coordinate: (i32, i32), svg: &mut String) {
         svg.push_str(&format!(
-            r#"<path
-                style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
-                d="M {}, {} {}, {}"
-            />
-            "#,
+            r#"    <path
+        style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
+        d="M {}, {} {}, {}"
+    />
+"#,
             LEFT.0 + coordinate.0,
             LEFT.1 + coordinate.1,
             RIGHT.0 + coordinate.0,
@@ -23,11 +23,11 @@ impl Elements {
 
     pub fn track_vertical(coordinate: (i32, i32), svg: &mut String) {
         svg.push_str(&format!(
-            r#"<path
-                style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
-                d="M {}, {} {}, {}"
-            />
-            "#,
+            r#"    <path
+        style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
+        d="M {}, {} {}, {}"
+    />
+"#,
             BOTTOM.0 + coordinate.0,
             BOTTOM.1 + coordinate.1,
             TOP.0 + coordinate.0,
@@ -37,11 +37,11 @@ impl Elements {
 
     pub fn track_up(coordinate: (i32, i32), svg: &mut String) {
         svg.push_str(&format!(
-            r#"<path
-                style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
-                d="M {}, {} {}, {}"
-            />
-            "#,
+            r#"    <path
+        style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
+        d="M {}, {} {}, {}"
+    />
+"#,
             BOTTOM_LEFT.0 + coordinate.0,
             BOTTOM_LEFT.1 + coordinate.1,
             TOP_RIGHT.0 + coordinate.0,
@@ -51,11 +51,11 @@ impl Elements {
 
     pub fn track_down(coordinate: (i32, i32), svg: &mut String) {
         svg.push_str(&format!(
-            r#"<path
-                style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
-                d="M {}, {} {}, {}"
-            />
-            "#,
+            r#"    <path
+        style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
+        d="M {}, {} {}, {}"
+    />
+"#,
             TOP_LEFT.0 + coordinate.0,
             TOP_LEFT.1 + coordinate.1,
             BOTTOM_RIGHT.0 + coordinate.0,
@@ -65,11 +65,11 @@ impl Elements {
 
     pub fn curve_left_up(coordinate: (i32, i32), svg: &mut String) {
         svg.push_str(&format!(
-            r#"<path
-                style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
-                d="M {}, {} {}, {} {}, {}"
-            />
-            "#,
+            r#"    <path
+        style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
+        d="M {}, {} {}, {} {}, {}"
+    />
+"#,
             LEFT.0 + coordinate.0,
             LEFT.1 + coordinate.1,
             CENTRE.0 + coordinate.0,
@@ -81,11 +81,11 @@ impl Elements {
 
     pub fn curve_left_down(coordinate: (i32, i32), svg: &mut String) {
         svg.push_str(&format!(
-            r#"<path
-                style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
-                d="M {}, {} {}, {} {}, {}"
-            />
-            "#,
+            r#"    <path
+        style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
+        d="M {}, {} {}, {} {}, {}"
+    />
+"#,
             LEFT.0 + coordinate.0,
             LEFT.1 + coordinate.1,
             CENTRE.0 + coordinate.0,
@@ -97,11 +97,11 @@ impl Elements {
 
     pub fn curve_right_up(coordinate: (i32, i32), svg: &mut String) {
         svg.push_str(&format!(
-            r#"<path
-                style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
-                d="M {}, {} {}, {} {}, {}"
-            />
-            "#,
+            r#"    <path
+        style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
+        d="M {}, {} {}, {} {}, {}"
+    />
+"#,
             RIGHT.0 + coordinate.0,
             RIGHT.1 + coordinate.1,
             CENTRE.0 + coordinate.0,
@@ -113,11 +113,11 @@ impl Elements {
 
     pub fn curve_right_down(coordinate: (i32, i32), svg: &mut String) {
         svg.push_str(&format!(
-            r#"<path
-                style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
-                d="M {}, {} {}, {} {}, {}"
-            />
-            "#,
+            r#"    <path
+        style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
+        d="M {}, {} {}, {} {}, {}"
+    />
+"#,
             RIGHT.0 + coordinate.0,
             RIGHT.1 + coordinate.1,
             CENTRE.0 + coordinate.0,
@@ -129,11 +129,11 @@ impl Elements {
 
     pub fn curve_top_left(coordinate: (i32, i32), svg: &mut String) {
         svg.push_str(&format!(
-            r#"<path
-                style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
-                d="M {}, {} {}, {} {}, {}"
-            />
-            "#,
+            r#"    <path
+        style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
+        d="M {}, {} {}, {} {}, {}"
+    />
+"#,
             TOP.0 + coordinate.0,
             TOP.1 + coordinate.1,
             CENTRE.0 + coordinate.0,
@@ -145,11 +145,11 @@ impl Elements {
 
     pub fn curve_top_right(coordinate: (i32, i32), svg: &mut String) {
         svg.push_str(&format!(
-            r#"<path
-                style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
-                d="M {}, {} {}, {} {}, {}"
-            />
-            "#,
+            r#"    <path
+        style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
+        d="M {}, {} {}, {} {}, {}"
+    />
+"#,
             TOP.0 + coordinate.0,
             TOP.1 + coordinate.1,
             CENTRE.0 + coordinate.0,
@@ -161,11 +161,11 @@ impl Elements {
 
     pub fn curve_bottom_left(coordinate: (i32, i32), svg: &mut String) {
         svg.push_str(&format!(
-            r#"<path
-                style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
-                d="M {}, {} {}, {} {}, {}"
-            />
-            "#,
+            r#"    <path
+        style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
+        d="M {}, {} {}, {} {}, {}"
+    />
+"#,
             BOTTOM.0 + coordinate.0,
             BOTTOM.1 + coordinate.1,
             CENTRE.0 + coordinate.0,
@@ -177,11 +177,11 @@ impl Elements {
 
     pub fn curve_bottom_right(coordinate: (i32, i32), svg: &mut String) {
         svg.push_str(&format!(
-            r#"<path
-                style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
-                d="M {}, {} {}, {} {}, {}"
-            />
-            "#,
+            r#"    <path
+        style="stroke:#000000;stroke-opacity:1;fill:none;stroke-width:1.5"
+        d="M {}, {} {}, {} {}, {}"
+    />
+"#,
             BOTTOM.0 + coordinate.0,
             BOTTOM.1 + coordinate.1,
             CENTRE.0 + coordinate.0,
