@@ -70,6 +70,7 @@ pub enum Elements {
     DiagonalTunnelDown,
     TunnelHorizontal,
     TunnelVertical,
+    None,
 }
 
 impl Elements {
@@ -116,6 +117,7 @@ impl Elements {
             Elements::DiagonalTunnelDown => Self::diagonal_tunnel_down(coordinate, svg),
             Elements::TunnelHorizontal => Self::tunnel_horizontal(coordinate, svg),
             Elements::TunnelVertical => Self::tunnel_vertical(coordinate, svg),
+            Elements::None => (),
         }
     }
 }
@@ -156,5 +158,94 @@ mod test_common {
                 .unwrap(),
         );
         file.write_all(svg.as_bytes()).unwrap();
+    }
+}
+
+#[cfg(test)]
+mod test {
+
+    use crate::svg_render::{
+        Elements,
+        test_common::{svg_epilog, write},
+    };
+
+    #[test]
+    fn test_render_circle() {
+        let mut svg = String::new();
+        svg.push_str(
+            r#"<svg
+    version="1.1"
+    width="140mm"
+    height="120mm"
+    viewBox="0 0 140 120"
+    xmlns="http://www.w3.org/2000/svg">
+"#,
+        );
+
+        let elements = [
+            [
+                Elements::None,
+                Elements::None,
+                Elements::CurveRightDown,
+                Elements::TrackHorizontal,
+                Elements::CurveLeftDown,
+                Elements::None,
+                Elements::None,
+            ],
+            [
+                Elements::None,
+                Elements::TrackUp,
+                Elements::None,
+                Elements::None,
+                Elements::None,
+                Elements::TrackDown,
+                Elements::None,
+            ],
+            [
+                Elements::CurveBottomRight,
+                Elements::None,
+                Elements::None,
+                Elements::None,
+                Elements::None,
+                Elements::None,
+                Elements::CurveBottomLeft,
+            ],
+            [
+                Elements::CurveTopRight,
+                Elements::None,
+                Elements::None,
+                Elements::None,
+                Elements::None,
+                Elements::None,
+                Elements::TrackVertical,
+            ],
+            [
+                Elements::None,
+                Elements::CurveRightUp,
+                Elements::TrackHorizontal,
+                Elements::CurveLeftDown,
+                Elements::None,
+                Elements::None,
+                Elements::CurveTopLeft,
+            ],
+            [
+                Elements::None,
+                Elements::None,
+                Elements::None,
+                Elements::None,
+                Elements::CurveRightUp,
+                Elements::CurveLeftUp,
+                Elements::None,
+            ],
+        ];
+
+        for (y, es) in elements.iter().enumerate() {
+            for (x, e) in es.iter().enumerate() {
+                e.render_svg((x as u16, y as u16), &mut svg);
+            }
+        }
+
+        svg_epilog(&mut svg);
+        write(svg, "A-svg-circle");
     }
 }
