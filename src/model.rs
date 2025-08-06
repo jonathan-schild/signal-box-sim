@@ -2,6 +2,9 @@
  * Copyright (c) 2025 Jonathan "Nath" Schild. Licensed under the EUPL-1.2
  */
 
+// TODO remove
+#![allow(dead_code)]
+
 use std::collections::HashMap;
 
 use petgraph::{algo::connected_components, graph::UnGraph};
