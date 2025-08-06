@@ -46,7 +46,10 @@ pub fn parse<R: BufRead>(source: R, file: String) -> Result<AbstractSyntaxTree, 
 }
 
 mod ast {
-    use std::collections::{HashMap, VecDeque};
+    use std::{
+        collections::{HashMap, HashSet, VecDeque},
+        hash::Hash,
+    };
 
     use crate::{
         Error,
@@ -110,9 +113,9 @@ mod ast {
         }
 
         fn parse_element(&mut self) -> Result<ElementNode, Error> {
-            let current = self.tokens.pop_front().ok_or(Error::UnexpectedEOF)?;
+            let (token, location) = self.tokens.pop_front().ok_or(Error::UnexpectedEOF)?;
 
-            match current.0 {
+            let mut element = match token {
                 Token::LBRACKET => self.parse_track(),
                 Token::W_POINT => self.parse_point(),
                 Token::T_TUNNEL => self.parse_tunnel(),
@@ -123,10 +126,16 @@ mod ast {
                 _ => Err(Error::ExpectedToken(
                     r#""[", "W", "DKW", "EKW", "Gs", "K" or "T""#.to_string(),
                 )),
-            }
+            }?;
+
+            element.set_location(location);
+
+            Ok(element)
         }
 
         fn parse_track(&mut self) -> Result<ElementNode, Error> {
+            let numeric_id = self.parse_identifier();
+
             todo!()
         }
 
@@ -152,6 +161,25 @@ mod ast {
 
         fn parse_derailer(&mut self) -> Result<ElementNode, Error> {
             todo!()
+        }
+
+        fn parse_identifier(&mut self) -> Result<u64, Error> {
+            let (id, _) = self.tokens.pop_front().ok_or(Error::UnexpectedEOF)?;
+
+            if let Token::IDENTIFIER(id) = id {
+                let numeric_id = if let Some(numeric_id) = self.id_map.get(&id) {
+                    *numeric_id
+                } else {
+                    let numeric_id = self.id_map.len() as u64;
+                    let assert = self.id_map.insert(id, numeric_id);
+                    debug_assert!(assert.is_none());
+                    numeric_id
+                };
+
+                Ok(numeric_id)
+            } else {
+                Err(Error::ExpectedToken("<Identifier>".to_string()))
+            }
         }
     }
 
@@ -195,5 +223,11 @@ mod ast {
             id: u64,
             location: Location,
         },
+    }
+
+    impl ElementNode {
+        fn set_location(&mut self, location: Location) {
+            todo!()
+        }
     }
 }
