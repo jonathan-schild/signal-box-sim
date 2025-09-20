@@ -1,5 +1,5 @@
 [package]
-name = "signal-box-sim"
+name = "signal_box_sim"
 version = "0.0.0"
 edition = "2024"
 description = "N/A"

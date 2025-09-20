@@ -6,6 +6,8 @@ use std::io;
 
 use thiserror::Error;
 
+pub mod track_graph;
+
 #[derive(Debug, Error)]
 pub enum Error {
     #[error(transparent)]
