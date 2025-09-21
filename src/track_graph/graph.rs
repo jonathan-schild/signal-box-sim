@@ -8,27 +8,13 @@ use serde::{Serialize, de::DeserializeOwned};
 use serde_json::Error;
 
 use crate::track_graph::{
-    IdentifierMap, InternalID, Node, extensions::Extensions, nodes::NodeType, regenerate_id_map,
+    IdentifierMap, Node, TrackGraphID, extensions::Extensions, nodes::NodeType, regenerate_id_map,
 };
 
-pub struct TrackGraph<I>
-where
-    I: Debug + Default + Clone + Eq + Hash + 'static,
-{
-    _nodes: Vec<Node<InternalID>>,
-    _id_map: IdentifierMap<I>,
-}
+mod algorithm;
 
-impl<I> TrackGraph<I>
-where
-    I: Debug + Default + Clone + Eq + Hash + 'static,
-{
-    pub fn transform<J>(&mut self, _id_map: &HashMap<I, J>) -> TrackGraph<J>
-    where
-        J: Debug + Default + Clone + Eq + Hash + 'static,
-    {
-        todo!()
-    }
+pub struct TrackGraph {
+    nodes: Vec<Node<TrackGraphID>>,
 }
 
 #[derive(Debug, Default)]
@@ -44,6 +30,7 @@ impl<I> TrackGraphBuilder<I>
 where
     I: Debug + Default + Clone + Eq + Hash + Serialize + DeserializeOwned + 'static,
 {
+    #[must_use]
     pub fn new() -> Self {
         TrackGraphBuilder {
             nodes: Vec::new(),
@@ -93,7 +80,6 @@ where
                 tip,
                 normal,
                 reverse,
-                coupled: None,
                 free_if_coupled_normal: None,
             },
             extension: Extensions::new(),
@@ -160,37 +146,12 @@ where
         self.add_node(node)
     }
 
-    fn add_node(&mut self, node: Node<I>) -> bool {
-        let id = node.id.clone();
-
-        if !self.id_map.contains_key(&id) {
-            self.id_map.insert(id, InternalID(self.nodes.len()));
-            self.nodes.push(node);
-            return true;
-        }
-
-        false
-    }
-}
-
-impl<I> From<TrackGraph<I>> for TrackGraphBuilder<I>
-where
-    I: Debug + Default + Clone + Eq + Hash + 'static,
-{
-    fn from(_value: TrackGraph<I>) -> Self {
-        todo!()
-    }
-}
-
-impl<I> From<TrackGraphBuilder<I>> for TrackGraph<I>
-where
-    I: Debug + Default + Clone + Eq + Hash + 'static,
-{
-    fn from(value: TrackGraphBuilder<I>) -> Self {
+    #[must_use]
+    pub fn into_track_graph(self) -> (TrackGraph, HashMap<I, TrackGraphID>) {
         let nodes;
         let mut id_map = HashMap::new();
 
-        let compacted_nodes: Vec<_> = value
+        let compacted_nodes: Vec<_> = self
             .nodes
             .into_iter()
             .filter(|n| !n.is_sentinel())
@@ -203,9 +164,18 @@ where
             .map(|n| n.transform(&id_map))
             .collect();
 
-        Self {
-            _nodes: nodes,
-            _id_map: id_map,
+        (TrackGraph { nodes }, id_map)
+    }
+
+    fn add_node(&mut self, node: Node<I>) -> bool {
+        let id = node.id.clone();
+
+        if !self.id_map.contains_key(&id) {
+            self.id_map.insert(id, TrackGraphID(self.nodes.len()));
+            self.nodes.push(node);
+            return true;
         }
+
+        false
     }
 }

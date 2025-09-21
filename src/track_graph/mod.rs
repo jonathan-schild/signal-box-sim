@@ -7,19 +7,16 @@ use serde::{Deserialize, Serialize};
 use crate::track_graph::nodes::Node;
 use std::{collections::HashMap, fmt::Debug, hash::Hash};
 
-mod algorithm;
 pub mod extensions;
 pub mod graph;
 mod nodes;
 
-// pub trait Identifier: fmt::Debug + Default + Clone + Eq + Hash + 'static {}
-
-type IdentifierMap<I> = HashMap<I, InternalID>;
+type IdentifierMap<I> = HashMap<I, TrackGraphID>;
 
 #[derive(
     Debug, Default, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Serialize, Deserialize,
 )]
-struct InternalID(usize);
+pub struct TrackGraphID(usize);
 
 fn regenerate_id_map<I>(nodes: &[Node<I>], id_map: &mut IdentifierMap<I>)
 where
@@ -28,9 +25,10 @@ where
     id_map.clear();
 
     for (i, n) in nodes.iter().enumerate() {
-        if id_map.insert(n.id().clone(), InternalID(i)).is_some() {
-            panic!("Id not unique!")
-        }
+        assert!(
+            id_map.insert(n.id().clone(), TrackGraphID(i)).is_none(),
+            "Id not unique!"
+        );
     }
 }
 

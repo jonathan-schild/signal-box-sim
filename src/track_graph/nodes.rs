@@ -67,7 +67,6 @@ pub(super) enum NodeType<I> {
         tip: I,
         normal: I,
         reverse: I,
-        coupled: Option<I>,
         free_if_coupled_normal: Option<bool>,
     },
     Crossing {
@@ -114,13 +113,11 @@ where
                 tip,
                 normal,
                 reverse,
-                coupled: _,
                 free_if_coupled_normal,
             } => NodeType::Point {
                 tip: update_id(tip, id_map),
                 normal: update_id(normal, id_map),
                 reverse: update_id(reverse, id_map),
-                coupled: None, // TODO
                 free_if_coupled_normal: *free_if_coupled_normal,
             },
             NodeType::Crossing { a, b, x, y } => NodeType::Crossing {

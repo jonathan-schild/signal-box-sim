@@ -45,6 +45,7 @@ pub struct Extensions {
 }
 
 impl Extensions {
+    #[must_use]
     pub fn new() -> Extensions {
         Extensions {
             map: HashMap::default(),
@@ -57,10 +58,12 @@ impl Extensions {
             .and_then(downcast_owned)
     }
 
+    #[must_use]
     pub fn contains<T: 'static>(&self) -> bool {
         self.map.contains_key(&TypeId::of::<T>())
     }
 
+    #[must_use]
     pub fn get<T: 'static>(&self) -> Option<&T> {
         self.map
             .get(&TypeId::of::<T>())
