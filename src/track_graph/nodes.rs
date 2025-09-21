@@ -2,21 +2,27 @@
  * Copyright (c) 2025 Jonathan "Nath" Schild. Licensed under the EUPL-1.2
  */
 
-use std::collections::HashMap;
+use std::{collections::HashMap, fmt::Debug, hash::Hash};
 
 use serde::{Deserialize, Serialize};
 
-use crate::track_graph::{Identifier, extensions::Extensions, update_id};
+use crate::track_graph::{extensions::Extensions, update_id};
 
 #[derive(Debug, Serialize, Deserialize)]
-pub(super) struct Node<I: Identifier> {
-    id: I,
-    neighbours: NodeType<I>,
+pub(super) struct Node<I>
+where
+    I: Debug + Default + Clone + Eq + Hash + 'static,
+{
+    pub(super) id: I,
+    pub(super) neighbours: NodeType<I>,
     #[serde(skip)]
-    extension: Extensions,
+    pub(super) extension: Extensions,
 }
 
-impl<I: Identifier> Node<I> {
+impl<I> Node<I>
+where
+    I: Debug + Default + Clone + Eq + Hash + 'static,
+{
     pub fn id(&self) -> &I {
         &self.id
     }
@@ -29,7 +35,10 @@ impl<I: Identifier> Node<I> {
         true
     }
 
-    pub fn transform<J: Identifier>(self, id_map: &HashMap<I, J>) -> Node<J> {
+    pub fn transform<J>(self, id_map: &HashMap<I, J>) -> Node<J>
+    where
+        J: Debug + Default + Clone + Eq + Hash + 'static,
+    {
         let mut extension = self.extension;
         extension.insert(self.id.clone());
 
@@ -46,18 +55,51 @@ impl<I: Identifier> Node<I> {
 #[derive(Debug, Serialize, Deserialize)]
 pub(super) enum NodeType<I> {
     Sentinel,
-    Track { x: I, y: I },
-    Derailer { from: I, to: I },
-    Point { tip: I, normal: I, reverse: I },
-    Crossing { a: I, b: I, x: I, y: I },
-    DeadEnd { x: I },
-    Signal { from: I, to: I },
-    OverlapEnd { x: I, y: I },
-    Block { x: I },
+    Track {
+        x: I,
+        y: I,
+    },
+    Derailer {
+        from: I,
+        to: I,
+    },
+    Point {
+        tip: I,
+        normal: I,
+        reverse: I,
+        coupled: Option<I>,
+        free_if_coupled_normal: Option<bool>,
+    },
+    Crossing {
+        a: I,
+        b: I,
+        x: I,
+        y: I,
+    },
+    DeadEnd {
+        x: I,
+    },
+    Signal {
+        from: I,
+        to: I,
+    },
+    OverlapEnd {
+        x: I,
+        y: I,
+    },
+    Block {
+        x: I,
+    },
 }
 
-impl<I: Identifier> NodeType<I> {
-    fn transform<J: Identifier>(self, id_map: &HashMap<I, J>) -> NodeType<J> {
+impl<I> NodeType<I>
+where
+    I: Debug + Default + Clone + Eq + Hash + 'static,
+{
+    fn transform<J>(self, id_map: &HashMap<I, J>) -> NodeType<J>
+    where
+        J: Debug + Default + Clone + Eq + Hash + 'static,
+    {
         match &self {
             NodeType::Sentinel => NodeType::Sentinel,
             NodeType::Track { x, y } => NodeType::Track {
@@ -72,10 +114,14 @@ impl<I: Identifier> NodeType<I> {
                 tip,
                 normal,
                 reverse,
+                coupled: _,
+                free_if_coupled_normal,
             } => NodeType::Point {
                 tip: update_id(tip, id_map),
                 normal: update_id(normal, id_map),
                 reverse: update_id(reverse, id_map),
+                coupled: None, // TODO
+                free_if_coupled_normal: *free_if_coupled_normal,
             },
             NodeType::Crossing { a, b, x, y } => NodeType::Crossing {
                 a: update_id(a, id_map),

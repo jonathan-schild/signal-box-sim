@@ -2,35 +2,52 @@
  * Copyright (c) 2025 Jonathan "Nath" Schild. Licensed under the EUPL-1.2
  */
 
-use std::collections::HashMap;
+use std::{collections::HashMap, fmt::Debug, hash::Hash};
 
 use serde::{Serialize, de::DeserializeOwned};
 use serde_json::Error;
 
-use crate::track_graph::{Identifier, IdentifierMap, InternalID, Node, regenerate_id_map};
+use crate::track_graph::{
+    IdentifierMap, InternalID, Node, extensions::Extensions, nodes::NodeType, regenerate_id_map,
+};
 
-pub struct TrackGraph<I: Identifier> {
+pub struct TrackGraph<I>
+where
+    I: Debug + Default + Clone + Eq + Hash + 'static,
+{
     _nodes: Vec<Node<InternalID>>,
     _id_map: IdentifierMap<I>,
 }
 
-impl<I: Identifier> TrackGraph<I> {
-    pub fn transform<J: Identifier>(&mut self, _id_map: &HashMap<I, J>) -> TrackGraph<J> {
+impl<I> TrackGraph<I>
+where
+    I: Debug + Default + Clone + Eq + Hash + 'static,
+{
+    pub fn transform<J>(&mut self, _id_map: &HashMap<I, J>) -> TrackGraph<J>
+    where
+        J: Debug + Default + Clone + Eq + Hash + 'static,
+    {
         todo!()
     }
 }
 
 #[derive(Debug, Default)]
-pub struct TrackGraphBuilder<I: Identifier> {
+pub struct TrackGraphBuilder<I>
+where
+    I: Debug + Default + Clone + Eq + Hash + 'static,
+{
     nodes: Vec<Node<I>>,
-    _id_map: IdentifierMap<I>,
+    id_map: IdentifierMap<I>,
 }
 
-impl<I: Identifier + DeserializeOwned + Serialize> TrackGraphBuilder<I> {
+impl<I> TrackGraphBuilder<I>
+where
+    I: Debug + Default + Clone + Eq + Hash + Serialize + DeserializeOwned + 'static,
+{
     pub fn new() -> Self {
         TrackGraphBuilder {
             nodes: Vec::new(),
-            _id_map: HashMap::new(),
+            id_map: HashMap::new(),
         }
     }
 
@@ -40,10 +57,7 @@ impl<I: Identifier + DeserializeOwned + Serialize> TrackGraphBuilder<I> {
 
         regenerate_id_map(&nodes, &mut id_map);
 
-        Ok(TrackGraphBuilder {
-            nodes,
-            _id_map: id_map,
-        })
+        Ok(TrackGraphBuilder { nodes, id_map })
     }
 
     pub fn to_json(&self) -> Result<String, Error> {
@@ -53,15 +67,125 @@ impl<I: Identifier + DeserializeOwned + Serialize> TrackGraphBuilder<I> {
     pub fn to_json_pretty(&self) -> Result<String, Error> {
         serde_json::to_string_pretty(&self.nodes)
     }
+
+    pub fn add_track(&mut self, id: I, x: I, y: I) -> bool {
+        let node = Node {
+            id,
+            neighbours: NodeType::Track { x, y },
+            extension: Extensions::new(),
+        };
+        self.add_node(node)
+    }
+
+    pub fn add_derailer(&mut self, id: I, from: I, to: I) -> bool {
+        let node = Node {
+            id,
+            neighbours: NodeType::Derailer { from, to },
+            extension: Extensions::new(),
+        };
+        self.add_node(node)
+    }
+
+    pub fn add_point(&mut self, id: I, tip: I, normal: I, reverse: I) -> bool {
+        let node = Node {
+            id,
+            neighbours: NodeType::Point {
+                tip,
+                normal,
+                reverse,
+                coupled: None,
+                free_if_coupled_normal: None,
+            },
+            extension: Extensions::new(),
+        };
+        self.add_node(node)
+    }
+
+    pub fn add_single_slip_point(
+        &mut self,
+        _id_ab: I,
+        _id_xy: I,
+        _a: I,
+        _b: I,
+        _x: I,
+        _y: I,
+    ) -> bool {
+        todo!()
+    }
+
+    pub fn add_double_slip_point(
+        &mut self,
+        _id_ab: I,
+        _id_xy: I,
+        _a: I,
+        _b: I,
+        _x: I,
+        _y: I,
+    ) -> bool {
+        todo!()
+    }
+
+    pub fn add_crossing(&mut self, id: I, a: I, b: I, x: I, y: I) -> bool {
+        let node = Node {
+            id,
+            neighbours: NodeType::Crossing { a, b, x, y },
+            extension: Extensions::new(),
+        };
+        self.add_node(node)
+    }
+
+    pub fn add_dead_end(&mut self, id: I, x: I) -> bool {
+        let node = Node {
+            id,
+            neighbours: NodeType::DeadEnd { x },
+            extension: Extensions::new(),
+        };
+        self.add_node(node)
+    }
+
+    pub fn add_signal(&mut self, _id: I, _from: I, _to: I) -> bool {
+        todo!()
+    }
+
+    pub fn add_overlap_end(&mut self, _id: I, _x: I, _y: I) -> bool {
+        todo!()
+    }
+
+    pub fn add_block(&mut self, id: I, x: I) -> bool {
+        let node = Node {
+            id,
+            neighbours: NodeType::Block { x },
+            extension: Extensions::new(),
+        };
+        self.add_node(node)
+    }
+
+    fn add_node(&mut self, node: Node<I>) -> bool {
+        let id = node.id.clone();
+
+        if !self.id_map.contains_key(&id) {
+            self.id_map.insert(id, InternalID(self.nodes.len()));
+            self.nodes.push(node);
+            return true;
+        }
+
+        false
+    }
 }
 
-impl<I: Identifier> From<TrackGraph<I>> for TrackGraphBuilder<I> {
+impl<I> From<TrackGraph<I>> for TrackGraphBuilder<I>
+where
+    I: Debug + Default + Clone + Eq + Hash + 'static,
+{
     fn from(_value: TrackGraph<I>) -> Self {
         todo!()
     }
 }
 
-impl<I: Identifier> From<TrackGraphBuilder<I>> for TrackGraph<I> {
+impl<I> From<TrackGraphBuilder<I>> for TrackGraph<I>
+where
+    I: Debug + Default + Clone + Eq + Hash + 'static,
+{
     fn from(value: TrackGraphBuilder<I>) -> Self {
         let nodes;
         let mut id_map = HashMap::new();
