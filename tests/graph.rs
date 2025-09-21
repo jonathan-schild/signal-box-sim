@@ -32,7 +32,7 @@ fn create_graph() {
     let json = graph.to_json_pretty().unwrap();
 
     assert_eq!(
-        json,
+        &json,
         r#"[
   {
     "id": "B v.u.n. A-Stadt",
@@ -58,7 +58,6 @@ fn create_graph() {
         "tip": "v.u.n. A-Stadt",
         "normal": "1",
         "reverse": "2",
-        "coupled": null,
         "free_if_coupled_normal": null
       }
     }
@@ -107,6 +106,10 @@ fn create_graph() {
     }
   }
 ]"#
-        .to_string()
     );
+
+    let deserialized_graph =
+        TrackGraphBuilder::<String>::from_json(&json).expect("valid JSON Track Graph");
+
+    assert_eq!(deserialized_graph, graph);
 }

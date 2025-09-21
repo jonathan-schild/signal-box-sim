@@ -17,7 +17,7 @@ pub struct TrackGraph {
     nodes: Vec<Node<TrackGraphID>>,
 }
 
-#[derive(Debug, Default)]
+#[derive(Debug, Default, PartialEq, Eq)]
 pub struct TrackGraphBuilder<I>
 where
     I: Debug + Default + Clone + Eq + Hash + 'static,

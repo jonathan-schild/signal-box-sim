@@ -52,7 +52,18 @@ where
     }
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+impl<I> PartialEq for Node<I>
+where
+    I: Debug + Default + Clone + Eq + Hash + 'static,
+{
+    fn eq(&self, other: &Self) -> bool {
+        self.id == other.id && self.neighbours == other.neighbours
+    }
+}
+
+impl<I> Eq for Node<I> where I: Debug + Default + Clone + Eq + Hash + 'static {}
+
+#[derive(Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub(super) enum NodeType<I> {
     Sentinel,
     Track {

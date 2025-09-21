@@ -18,6 +18,18 @@ type IdentifierMap<I> = HashMap<I, TrackGraphID>;
 )]
 pub struct TrackGraphID(usize);
 
+impl From<usize> for TrackGraphID {
+    fn from(value: usize) -> Self {
+        TrackGraphID(value)
+    }
+}
+
+impl From<TrackGraphID> for usize {
+    fn from(value: TrackGraphID) -> Self {
+        value.0
+    }
+}
+
 fn regenerate_id_map<I>(nodes: &[Node<I>], id_map: &mut IdentifierMap<I>)
 where
     I: Debug + Default + Clone + Eq + Hash + 'static,
