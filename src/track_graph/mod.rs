@@ -4,50 +4,64 @@
 
 use serde::{Deserialize, Serialize};
 
-use crate::track_graph::nodes::Node;
-use std::{collections::HashMap, fmt::Debug, hash::Hash};
+mod algorithm;
 
-pub mod extensions;
-pub mod graph;
-mod nodes;
+#[derive(Debug, PartialEq, Eq, Clone, Copy, Serialize, Deserialize)]
+pub struct ElementID(usize);
 
-type IdentifierMap<I> = HashMap<I, TrackGraphID>;
+#[derive(Debug, PartialEq, Eq, Clone, Copy, Serialize, Deserialize)]
+pub struct UnitID(usize);
 
-#[derive(
-    Debug, Default, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Serialize, Deserialize,
-)]
-pub struct TrackGraphID(usize);
+#[derive(Debug, PartialEq, Eq, Clone, Copy, Serialize, Deserialize)]
+pub struct GlobalID(usize, usize);
 
-impl From<usize> for TrackGraphID {
-    fn from(value: usize) -> Self {
-        TrackGraphID(value)
-    }
+#[derive(Debug, Serialize, Deserialize)]
+pub struct TrackGraph<EI, UI, GI> {
+    unit_id: UI,
+    elements: Vec<TrackElement<EI, GI>>,
 }
 
-impl From<TrackGraphID> for usize {
-    fn from(value: TrackGraphID) -> Self {
-        value.0
-    }
+#[derive(Debug, Serialize, Deserialize)]
+pub struct TrackElement<EI, GI> {
+    element_id: EI,
+    connection: ElementConnections<EI, GI>,
 }
 
-fn regenerate_id_map<I>(nodes: &[Node<I>], id_map: &mut IdentifierMap<I>)
-where
-    I: Debug + Default + Clone + Eq + Hash + 'static,
-{
-    id_map.clear();
-
-    for (i, n) in nodes.iter().enumerate() {
-        assert!(
-            id_map.insert(n.id().clone(), TrackGraphID(i)).is_none(),
-            "Id not unique!"
-        );
-    }
-}
-
-fn update_id<I, J>(id: &I, id_map: &HashMap<I, J>) -> J
-where
-    I: Debug + Default + Clone + Eq + Hash + 'static,
-    J: Debug + Default + Clone + Eq + Hash + 'static,
-{
-    id_map.get(id).expect("id mapping should exist").clone()
+#[derive(Debug, Serialize, Deserialize)]
+pub enum ElementConnections<EI, GI> {
+    Track {
+        x: EI,
+        y: EI,
+    },
+    Derailer {
+        from: EI,
+        to: EI,
+    },
+    Point {
+        tip: EI,
+        normal: EI,
+        reverse: EI,
+        free_if_coupled_normal: Option<bool>,
+    },
+    Crossing {
+        a: EI,
+        b: EI,
+        x: EI,
+        y: EI,
+    },
+    DeadEnd {
+        x: EI,
+    },
+    Signal {
+        from: EI,
+        to: EI,
+    },
+    OverlapEnd {
+        x: EI,
+        y: EI,
+    },
+    Block {
+        x: EI,
+        connected: Option<GI>,
+    },
 }

@@ -6,6 +6,7 @@ use std::io;
 
 use thiserror::Error;
 
+pub mod routes;
 pub mod track_graph;
 
 #[derive(Debug, Error)]
