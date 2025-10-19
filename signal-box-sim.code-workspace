@@ -65,6 +65,7 @@
 			"analyzer",
 			"ascii",
 			"Asig",
+			"bitflags",
 			"CILL",
 			"clippy",
 			"darkmagenta",

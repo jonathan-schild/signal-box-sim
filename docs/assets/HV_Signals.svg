@@ -1,0 +1,47 @@
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="60"
+    height="233"
+>
+
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 60 125"
+    width="60"
+    height="125"
+>
+    <rect x="0" y="0" width="60" height="125" fill="black"/>
+
+    <circle cx="14" cy="14" r="10" fill="green"/>
+    <circle cx="14" cy="39" r="10" fill="red"/>
+    <circle cx="45" cy="39" r="10" fill="red"/>
+
+    <circle cx="19" cy="66" r="5" fill="white"/>
+    <circle cx="30" cy="66" r="5" fill="white"/>
+    <circle cx="41" cy="66" r="5" fill="white"/>
+
+    <circle cx="9" cy="84" r="5" fill="white"/>
+    <circle cx="30" cy="84" r="5" fill="white"/>
+    <circle cx="51" cy="84" r="5" fill="white"/>
+
+    <circle cx="14" cy="111" r="10" fill="orange"/>
+</svg>
+
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 60 103"
+    width="60"
+    height="103"
+    y="130"
+>
+    <rect x="0" y="0" width="60" height="103" fill="black"/>
+
+    <circle cx="14" cy="14" r="5" fill="white"/>
+
+    <circle cx="45" cy="14" r="10" fill="green"/>
+    <circle cx="45" cy="39" r="10" fill="orange"/>
+    <circle cx="14" cy="64" r="10" fill="green"/>
+    <circle cx="14" cy="89" r="10" fill="orange"/>
+</svg>
+
+</svg>

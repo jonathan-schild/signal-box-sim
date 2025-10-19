@@ -6,8 +6,7 @@ use std::io;
 
 use thiserror::Error;
 
-pub mod routes;
-pub mod track_graph;
+mod track_groups;
 
 #[derive(Debug, Error)]
 pub enum Error {
